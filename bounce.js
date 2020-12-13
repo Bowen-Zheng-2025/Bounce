@@ -41,5 +41,4 @@ function circles(){ // fancy loop i should use for the animation part of the bou
   }
 }
 
-
 circles();
