@@ -93,30 +93,97 @@
 
 /*******Step 10 of Assignment: Replacing the Rectangle with a Face/Emoji*******/
 
-  var c = document.getElementById("myCanvas");
-  var ctx = c.getContext("2d");
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
 
-  var myImg = new Image();
-  var rect = {xPos: 250, yPos: 125, width: 100, height: 100, xVel: 1, yVel: 5}; //gives the parameters for drawing the rectangle, position, and movement
+var rect = {xPos: 250, yPos: 125, width: 100, height: 100, xVel: 1, yVel: 5}; //gives the parameters for drawing the rectangle, position, and movement
 
-  function draw() {
-    myImg.onload = function () { //function within a function to have the canvas draw the actual image
-        ctx.drawImage(myImg, rect.xPos, rect.yPos, rect.width, rect.height); //parameters for drawing the image
-    }
-    myImg.src = "smiley.jpg"; //the picture I want to use
+var myImg = new Image(); //this assists in loading image onto screen
+    myImg.onload = function (){
+     drawPic();
+    };
+
+function drawPic() { //this gets the image using the myImg.src
+   myImg.src = "smiley.jpg";
+   ctx.drawImage(myImg, rect.xPos, rect.yPos, rect.width, rect.height); //gives parameters for what I want my image to have
+ }
+
+function draw() {
+  myImg.onload = function () { //function within a function to have the canvas draw the actual image
+    ctx.drawImage(myImg, rect.xPos, rect.yPos, rect.width, rect.height); //parameters for drawing the image
+  }
+  myImg.src = "smiley.jpg"; //the picture I want to use
+}
+
+function moveMyImg() { //moves the image now
+  ctx.clearRect(0,0, c.width, c.height); //clears the canvas so that image doesn't repeatedly appear after each loop
+  drawPic();
+  if ((rect.xPos + rect.width + rect.xVel > c.width) || (rect.xPos == 0)) { //makes sure the image doesn't go out of bounds in the x direction
+    rect.xVel = -rect.xVel; //if it does, change the direction
+  }
+  if ((rect.yPos + rect.width + rect.xVel > c.height) || (rect.yPos == 0)) { //makes sure the image doesn't go out of bounds in the y direction
+    rect.yVel = -rect.yVel; //if it does, change the direction
+  }
+  rect.xPos += rect.xVel; //increments the position of the image in the x direction to give the illusion of movement
+  rect.yPos += rect.yVel; //increments the position of the image in the y direction to give the illusion of movement
+}
+
+setInterval(draw, 10); //actaully draws the image on the canvas
+setInterval(moveMyImg, 10); //actually does the loop to make the image move on the canvas
+
+/********************************Final Product*********************************/
+//Note: To use this, comment everything else out
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+ var myImg = new Image(); //assists in loading image onto the screen
+     myImg.onload = function (){
+      drawRect();
+    };
+
+var xVel = Math.floor(Math.random() * (6 - 1) + 1); //fun quirk to change the velocity/movement speed of my object in the x direction
+var yVel = Math.floor(Math.random() * (6 - 1) + 1); //fun quirk to change the velocity/movement speed of my object in the y direction
+var size = Math.floor(Math.random() * (150 - 50) + 50); //fun quirk to change the image's size
+var xPos = Math.floor(Math.random() * (850 - 150) + 150); //fun quirk to change the position of my object in the x direction
+var yPos = Math.floor(Math.random() * (350 - 150) + 150); //fun quirk to change the position of my object in the y direction
+var rect = {x: xPos, y: yPos, xVel: xVel, yVel: yVel, width: size, height: size}; //master variable: gives all the parameters to change movement, position, and size of the image
+
+function drawRect() {
+    myImg.src = "smiley.jpg"; //source where my image is at
+    ctx.drawImage(myImg, rect.x, rect.y, rect.width, rect.height);
   }
 
-  function moveMyImg() { //moves the image now
-    ctx.clearRect(0,0, c.width, c.height); //clears the canvas so that image doesn't repeatedly appear after each loop
-    if ((rect.xPos + rect.width + rect.xVel > c.width) || (rect.xPos == 0)) { //makes sure the image doesn't go out of bounds in the x direction
-      rect.xVel = -rect.xVel; //if it does, change the direction
-    }
-    if ((rect.yPos + rect.width + rect.xVel > c.height) || (rect.yPos == 0)) { //makes sure the image doesn't go out of bounds in the y direction
-      rect.yVel = -rect.yVel; //if it does, change the direction
-    }
-    rect.xPos += rect.xVel; //increments the position of the image in the x direction to give the illusion of movement
-    rect.yPos += rect.yVel; //increments the position of the image in the y direction to give the illusion of movement
-  }
+var lines = [{x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}]; //variable that I'm storing the coordinates for when the image bounces
 
-  setInterval(draw, 10); //actaully draws the image on the canvas
-  setInterval(moveMyImg, 10); //actually does the loop to make the image move on the canvas
+function drawLine() {
+  ctx.beginPath(); //starts drawing
+  for (var i = lines.length - 1; i >= 0; i--) {
+    if (i == lines.length-1) {
+      ctx.moveTo((rect.x+(rect.width/2)),(rect.y + (rect.height/2))); //draws the start of the line
+      ctx.lineTo(lines[i].x,lines[i].y); //ending point for the end of the line to draw to
+    }
+    else {
+      ctx.moveTo(lines[i].x, lines[i].y); //draws the start of the line
+      ctx.lineTo(lines[i+1].x,lines[i+1].y); //ending point for the end of the line to draw to
+    }
+  }
+  ctx.stroke(); //finish drawing the line
+}
+
+function draw() {
+ ctx.clearRect(0, 0, c.width, c.height); //clears the canvas so that images won't continue to remain on the canvas
+ drawLine(); //draws the line following the image
+ drawRect(); //draws the fun image on the canvas
+ if((rect.x + rect.xVel > c.width) || (rect.x + rect.xVel < 0) || (rect.x +rect.width + rect.xVel > c.width) || (rect.x + rect.xVel < 0)) { //checks if it goes out of bounds in x direction
+   rect.xVel = -rect.xVel; //if hit boundary, go opposite direction
+   lines.push({x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}); //push the coords to when the object hits the wall so it can draw the line
+ }
+ if((rect.y + rect.yVel > c.height) || (rect.y + rect.yVel < 0) || (rect.y+rect.height + rect.yVel > c.height) || (rect.y + rect.yVel < 0)) { //checks if it goes out of bounds in y direction
+   rect.yVel = -rect.yVel; //if hit boundary, go opposite direction
+   lines.push({x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}); //push the coords to when the object hits the wall so it can draw the line
+ }
+ rect.x += rect.xVel; //continually increment the position of the object in the x direction to give illusion of the image moving
+ rect.y += rect.yVel; //continually increment the position of the object in the y direction to give illusion of the image moving
+}
+
+setInterval(draw, 10); //actually implements everything
