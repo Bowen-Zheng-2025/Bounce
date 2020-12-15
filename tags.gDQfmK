@@ -1,0 +1,24 @@
+canvas	Ethan.js	/^var canvas = document.getElementById("myCanvas");$/;"	v
+ctx	Ethan.js	/^var ctx = canvas.getContext("2d");$/;"	v
+x	Ethan.js	/^var x = 10;$/;"	v
+y	Ethan.js	/^var y = 10;$/;"	v
+dx	Ethan.js	/^var dx = 2;$/;"	v
+dy	Ethan.js	/^var dy = -2;$/;"	v
+ballRadius	Ethan.js	/^var ballRadius = 10;$/;"	v
+drawBall	Ethan.js	/^  function drawBall() {$/;"	f
+bounce	Ethan.js	/^function bounce() {$/;"	f
+c	bounce.js	/^var c = document.getElementById("myCanvas");$/;"	v
+ctx	bounce.js	/^var ctx = c.getContext("2d");$/;"	v
+circleFunctionNoClear	bounce.js	/^function circleFunctionNoClear() {$/;"	f
+gotRect	bounce.js	/^function gotRect(){$/;"	f
+step	bounce.js	/^  function step(){ \/\/this is within the circles namespace.$/;"	f	function:circles
+circles	bounce.js	/^function circles(){ \/\/ fancy loop i should use for the animation part of the bouncing ball. circle center + radius +1 is out of bounds$/;"	f
+canvas	bowen.js	/^  var canvas = document.getElementById("myCanvas");$/;"	v
+context	bowen.js	/^  var context = canvas.getContext("2d");$/;"	v
+rad	bowen.js	/^  var rad = 50;$/;"	v
+xVal	bowen.js	/^  var xVal = rad;$/;"	v
+yVal	bowen.js	/^  var yVal = rad;$/;"	v
+xVelocity	bowen.js	/^  var xVelocity = 3;$/;"	v
+yVelocity	bowen.js	/^  var yVelocity = 3;$/;"	v
+circleFunctionNoClear	bowen.js	/^  function circleFunctionNoClear() {$/;"	f
+circleBounce	bowen.js	/^  function circleBounce(){$/;"	f
