@@ -184,52 +184,49 @@ var ctx = c.getContext("2d");
       drawRect();
     };
 
-var xVel = Math.floor(Math.random() * (6 - 1) + 1); //fun quirk to change the velocity/movement speed of my object in the x direction
-var yVel = Math.floor(Math.random() * (6 - 1) + 1); //fun quirk to change the velocity/movement speed of my object in the y direction
-var size = Math.floor(Math.random() * (150 - 50) + 50); //fun quirk to change the image's size
-var xPos = Math.floor(Math.random() * (850 - 150) + 150); //fun quirk to change the position of my object in the x direction
-var yPos = Math.floor(Math.random() * (350 - 150) + 150); //fun quirk to change the position of my object in the y direction
-var rect = {x: xPos, y: yPos, xVel: xVel, yVel: yVel, width: size, height: size}; //master variable: gives all the parameters to change movement, position, and size of the image
+var xVel = Math.floor(Math.random() * (6 - 1) + 1);
+var yVel = Math.floor(Math.random() * (6 - 1) + 1);
+var size = Math.floor(Math.random() * (150 - 50) + 50);
+var xPos = Math.floor(Math.random() * (850 - 150) + 150);
+var yPos = Math.floor(Math.random() * (350 - 150) + 150);
+var rect = {x: xPos, y: yPos, xVel: xVel, yVel: yVel, width: size, height: size};
 
 function drawRect() {
     myImg.src = "smiley.jpg"; //source where my image is at
     ctx.drawImage(myImg, rect.x, rect.y, rect.width, rect.height);
   }
 
-var lines = [{x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}]; //variable that I'm storing the coordinates for when the image bounces
+var lines = [{x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}];
 
 function drawLine() {
-  ctx.beginPath(); //starts drawing
+  ctx.beginPath();
   for (var i = lines.length - 1; i >= 0; i--) {
     if (i == lines.length-1) {
-      ctx.moveTo((rect.x+(rect.width/2)),(rect.y + (rect.height/2))); //draws the start of the line
-      ctx.lineTo(lines[i].x,lines[i].y); //ending point for the end of the line to draw to
+      ctx.moveTo((rect.x+(rect.width/2)),(rect.y + (rect.height/2)));
+      ctx.lineTo(lines[i].x,lines[i].y);
     }
     else {
-      ctx.moveTo(lines[i].x, lines[i].y); //draws the start of the line
-      ctx.lineTo(lines[i+1].x,lines[i+1].y); //ending point for the end of the line to draw to
+      ctx.moveTo(lines[i].x, lines[i].y);
+      ctx.lineTo(lines[i+1].x,lines[i+1].y);
     }
   }
-  ctx.stroke(); //finish drawing the line
+  ctx.stroke();
 }
 
 function draw() {
- ctx.clearRect(0, 0, c.width, c.height); //clears the canvas so that images won't continue to remain on the canvas
- drawLine(); //draws the line following the image
- drawRect(); //draws the fun image on the canvas
- if((rect.x + rect.xVel > c.width) || (rect.x + rect.xVel < 0) || (rect.x +rect.width + rect.xVel > c.width) || (rect.x + rect.xVel < 0)) { //checks if it goes out of bounds in x direction
-   rect.xVel = -rect.xVel; //if hit boundary, go opposite direction
-   lines.push({x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}); //push the coords to when the object hits the wall so it can draw the line
+ ctx.clearRect(0, 0, c.width, c.height);
+ drawLine();
+ drawRect();
+ if((rect.x + rect.xVel > c.width) || (rect.x + rect.xVel < 0) || (rect.x +rect.width + rect.xVel > c.width) || (rect.x + rect.xVel < 0)) {
+   rect.xVel = -rect.xVel;
+   lines.push({x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))});
  }
- if((rect.y + rect.yVel > c.height) || (rect.y + rect.yVel < 0) || (rect.y+rect.height + rect.yVel > c.height) || (rect.y + rect.yVel < 0)) { //checks if it goes out of bounds in y direction
-   rect.yVel = -rect.yVel; //if hit boundary, go opposite direction
-   lines.push({x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))}); //push the coords to when the object hits the wall so it can draw the line
+ if((rect.y + rect.yVel > c.height) || (rect.y + rect.yVel < 0) || (rect.y+rect.height + rect.yVel > c.height) || (rect.y + rect.yVel < 0)) {
+   rect.yVel = -rect.yVel;
+   lines.push({x:(rect.x+(rect.width/2)),y:(rect.y + (rect.height/2))});
  }
- rect.x += rect.xVel; //continually increment the position of the object in the x direction to give illusion of the image moving
- rect.y += rect.yVel; //continually increment the position of the object in the y direction to give illusion of the image moving
+ rect.x += rect.xVel;
+ rect.y += rect.yVel;
 }
 
-setInterval(draw, 10); //actually implements everything
-
-
-circles();
+setInterval(draw, 10);

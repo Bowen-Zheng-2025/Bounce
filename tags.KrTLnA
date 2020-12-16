@@ -1,0 +1,6 @@
+c	bounce.js	/^var c = document.getElementById("myCanvas");$/;"	v
+ctx	bounce.js	/^var ctx = c.getContext("2d");$/;"	v
+circleFunctionNoClear	bounce.js	/^function circleFunctionNoClear() {$/;"	f
+gotRect	bounce.js	/^function gotRect(){$/;"	f
+step	bounce.js	/^  function step(){ \/\/this is within the circles namespace.$/;"	f	function:circles
+circles	bounce.js	/^function circles(){ \/\/ fancy loop i should use for the animation part of the bouncing ball. circle center + radius +1 is out of bounds$/;"	f
