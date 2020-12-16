@@ -176,7 +176,8 @@ setInterval(moveMyImg, 10); //actually does the loop to make the image move on t
 */
 /********************************Final Product*********************************/
 //Note: To use this, comment everything else out
-/*var c = document.getElementById("myCanvas");
+/*
+var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
  var myImg = new Image(); //assists in loading image onto the screen
